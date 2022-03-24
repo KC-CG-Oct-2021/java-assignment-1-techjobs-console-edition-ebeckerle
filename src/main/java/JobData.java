@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -79,7 +76,11 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            // MAKE SEARCH METHODS CASE-INSENSITIVE
+            aValue = aValue.toLowerCase();
+            String bValue = value.toLowerCase();
+
+            if (aValue.contains(bValue)) {
                 jobs.add(row);
             }
         }
@@ -99,7 +100,41 @@ public class JobData {
         loadData();
 
         // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+
+            // MAKE SEARCH METHODS CASE-INSENSITIVE
+            // Making the "job" hashmap lowercase
+            HashMap<String, String> jobLowerCase = new HashMap<>();
+            for (Map.Entry<String, String> row : job.entrySet()) {
+                String keyToLowerCase = row.getKey().toLowerCase();
+                String valueToLowerCase = row.getValue().toLowerCase();
+                jobLowerCase.put(keyToLowerCase, valueToLowerCase);
+            }
+            //Making the search term lower case:
+            String bValue = value.toLowerCase();
+
+            //searching for the smaller strings within the value (of a key / value pair) (ie, the 'dev' in 'developer')
+            String valueContainingSearchTerm = null;
+            Collection<String> collectionOfAllValues = jobLowerCase.values();
+            // iterate thru our collection of values from jobLowerCase to look for our string search term
+            for (String originalValue : collectionOfAllValues) {
+                if (originalValue.contains(bValue)){
+                    /* - assign the value from the jobLowerCase hashmap to the string reference variable -
+                    'valueContainingSearchTerm' so we can use this reference variable to work the .containsValue()
+                    method in our conditional below
+                     */
+                    valueContainingSearchTerm = originalValue;
+                }
+            }
+
+
+            if (jobLowerCase.containsValue(valueContainingSearchTerm)){
+                jobs.add(job);
+            }
+        }
+        return jobs;
     }
 
     /**
