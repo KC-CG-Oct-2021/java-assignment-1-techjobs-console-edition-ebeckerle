@@ -11,7 +11,7 @@ public class TechJobs {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
-        columnChoices.put("core competency", "type");
+        columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
@@ -120,16 +120,16 @@ public class TechJobs {
 //        HashMap<String, String> job = new HashMap<>();
 
         for (HashMap<String, String> job : someJobs) {
-            System.out.println("*****");
+            System.out.println("\n*****");
 //            System.out.println(job);
             for (Map.Entry<String, String> columnKey : job.entrySet()) {
                 System.out.println(columnKey.getKey() + ": " + columnKey.getValue());
             }
-            System.out.println("*****\n");
+            System.out.println("*****");
         }
 
         if (someJobs.size() == 0) {
-            System.out.println("I am sorry, there are no job listings containing that search term.");
+            System.out.println("No Results");
         }
     }
 }
