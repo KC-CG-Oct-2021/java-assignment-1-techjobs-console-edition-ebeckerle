@@ -11,7 +11,7 @@ public class TechJobs {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
-        columnChoices.put("core competency", "Skill");
+        columnChoices.put("core competency", "type");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
